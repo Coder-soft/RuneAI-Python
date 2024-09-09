@@ -87,7 +87,7 @@ def toggle_system_sounds(state):
 def handle_unrecognized_command(command):
     return chat_with_gemini(command)
 import google.generativeai as genai
-genai.configure(api_key="AIzaSyDFMewub97IEuO9wSRVzkPSsWlHM4r5tkk")
+genai.configure(api_key="Gemini API")
 model = genai.GenerativeModel("gemini-1.5-flash")
 custom_knowledge = {
     "info": "This is a Python-based system controller that can manange system with simple commands with AI chat capabilities.",
@@ -304,7 +304,7 @@ def send_message(event=None):
     threading.Thread(target=handle_command, args=(user_input,)).start()
 
 def search_web(query):
-    api_key = "AIzaSyDFMewub97IEuO9wSRVzkPSsWlHM4r5tkk"
+    api_key = "Google API"
     cx = "d38be4ab9d14c48e1"
     url = f"https://www.googleapis.com/customsearch/v1?q={query}&key={api_key}&cx={cx}"
     try:
@@ -330,7 +330,7 @@ def download_file(url):
     except Exception as e:
         return f"Error downloading file: {str(e)}"
 def get_weather(city_name):
-    api_key="453e5312f4f421956d6c9f88b83010c2"
+    api_key="Open weathermap api"
     base_url=f"http://api.openweathermap.org/data/2.5/weather"
     params={'q':city_name,'appid':api_key,'units':'metric'}
     try:
@@ -344,21 +344,6 @@ def get_weather(city_name):
             return f"The temperature in {city_name.title()} is {temperature}°C with {humidity}% humidity. Weather conditions are described as {description}."
         else:return f"City {city_name.title()} not found. Please check the spelling and try again."
     except Exception as e:return f"Error fetching weather: {str(e)}"
-def search_web(query):
-    api_key="AIzaSyDFMewub97IEuO9wSRVzkPSsWlHM4r5tkk"
-    cx="d38be4ab9d14c48e1"
-    url=f"https://www.googleapis.com/customsearch/v1?q={query}&key={api_key}&cx={cx}"
-    try:
-        response=requests.get(url)
-        search_results=response.json()
-        if 'items' in search_results:
-            item=search_results['items'][0]
-            title=item['title']
-            snippet=item['snippet']
-            link=item['link']
-            return f"{title}Snippet: {snippet}'{link}"
-        else:return "No search results found."
-    except Exception as e:return f"Error performing search: {str(e)}"
 def download_file(url):
     if url.startswith("http"):
         filename=url.split("/")[-1]
